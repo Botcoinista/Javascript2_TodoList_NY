@@ -2,10 +2,8 @@ const BASE_URL = "https://jsonplaceholder.typicode.com/todos/";
 //HÄMTAR HEM REFERENSER FRÅN INDEX.HTML
 const form = document.querySelector(".form");
 const ul = document.querySelector(".list");
-// const container = document.querySelector(".container");
-// const card = document.querySelector(".card");
-// const button = document.querySelector(".btn");
-// const li = document.querySelector(".listItem");
+const li = document.querySelector(".listItem");
+const button = document.querySelector(".btn");
 
 
 
@@ -26,7 +24,7 @@ const getTodos = async () => {
       ul.innerText = ""
       // FÖR VARJE TODO I todosArray 
       todosArray.forEach(todo => {
-        console.log(todo)
+        // console.log(todo)
         /* FÖR VARJE ANVÄNDARE SÅ SKA JAG BYGGA IHOP ETT createElement,
         DÅ MÅSTE VI TA VARJE todo OCH LÄGGA IN DET I createElement FUNKTIONEN */
         const userElement = createTodoElement(todo)
@@ -43,6 +41,7 @@ const getTodos = async () => {
   const createTodoElement = (todoData) => {
 
     const li = document.createElement("li")
+    li.id = todoData.id
     li.classList.add("listItem")
     li.classList.add("header")
     li.innerText = todoData.userId
@@ -65,26 +64,67 @@ const getTodos = async () => {
     return li
   }
 
+  const removeUser = e => {
+  
+  if(!e.target.classList.contains("header")) {
+    console.log("klickade inte på header")
+    return
+  }
+  // console.log(e.target.id)
+
+  // fetch(BASE_URL + e.target.id, {
+  //   method: "DELETE"
+  // })
+  // .then (res => {
+  // console.log(res)
+  // return res.json()
+  // })
+  // .then (data => console.log(data)) 
+
+  fetch(BASE_URL + e.target.id, {
+    method: 'DELETE'
+  })
+    .then(res => {
+      console.log(res)
+      if(res.ok) {
+        e.target.remove()
+        const index = (todosArray.findIndex(todo => todo.id == e.target.id))
+        todosArray.splice(index, 1)
+        console.log(todosArray)
+      }
+    })
+}
+  
+
+  // button.addEventListener("click", removeUser)
+  ul.addEventListener("click", removeUser)
+
+
+
+
+
+
 
 
     // FORM VALIDERING
-const input = document.querySelector("input");
-const errormessage = document.querySelector(".errormessage");
+    const input = document.querySelector("input");
+    const errormessage = document.querySelector(".errormessage");
+    
+    
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      
+      if (input.value === "") {
+        errormessage.innerText = "Formuläret får inte vara tomt!";
+        // errormessage.classList.add("errormessage");
+      }
+      
+      input.addEventListener("click", () => {
+        errormessage.innerText = "";
+        errormessage.classList.remove("errormessage");
+      });
+    
+    });
 
 
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
   
-  if (input.value === "") {
-    errormessage.innerText = "Formuläret får inte vara tomt!";
-    // errormessage.classList.add("errormessage");
-  }
-  
-  input.addEventListener("click", () => {
-    errormessage.innerText = "";
-  //   errormessage.classList.remove("errormessage");
-  });
-
-});
-
-

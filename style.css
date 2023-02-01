@@ -51,7 +51,7 @@ body {
     flex-direction: row;
     justify-content: space-between;
     gap: 6rem;
-    height: 100px;
+    height: 150px;
    width: 100%;
    border-left: 20px solid rgb(0, 0, 0);
    margin-bottom: 20px;
@@ -115,4 +115,8 @@ body {
     padding: 1rem;
     font-size: large;
     margin-bottom: -2rem;
+}
+
+p {
+    pointer-events:none;
 }
