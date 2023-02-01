@@ -12,7 +12,7 @@ todosArray = []
 
 //HÄMTAR DATAN FRÅN API:et OCH GÖR OM DET TILL EN JAVASCRIPTFIL
 const getTodos = async () => {
-    const res = await fetch (BASE_URL);
+    const res = await fetch ("https://jsonplaceholder.typicode.com/todos?_limit=7");
     const data = await res.json();
     //LOOPAR IGENOM ALL DATA MAN FÅR FRÅN API:et OCH PUSHAR IN DET I DET LOKALA ARRAYET = todosArray 
     // console.log(data)
@@ -70,17 +70,7 @@ const getTodos = async () => {
     console.log("klickade inte på header")
     return
   }
-  // console.log(e.target.id)
-
-  // fetch(BASE_URL + e.target.id, {
-  //   method: "DELETE"
-  // })
-  // .then (res => {
-  // console.log(res)
-  // return res.json()
-  // })
-  // .then (data => console.log(data)) 
-
+ 
   fetch(BASE_URL + e.target.id, {
     method: 'DELETE'
   })
@@ -114,9 +104,13 @@ const getTodos = async () => {
     form.addEventListener("submit", (e) => {
       e.preventDefault();
       
+      // const newTodo {
+      //   title: 
+      // }
+
       if (input.value === "") {
         errormessage.innerText = "Formuläret får inte vara tomt!";
-        // errormessage.classList.add("errormessage");
+        errormessage.classList.add("errormessage");
       }
       
       input.addEventListener("click", () => {

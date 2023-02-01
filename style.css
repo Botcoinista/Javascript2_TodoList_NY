@@ -78,7 +78,7 @@ body {
 .input {
     padding: .5rem;
     border-radius: .5rem;
-    width:50%;
+    width:600px;
 }
 
 .btn {
@@ -114,7 +114,9 @@ body {
     color: firebrick;
     padding: 1rem;
     font-size: large;
+    margin-top: 1rem;
     margin-bottom: -2rem;
+    text-align: center;
 }
 
 p {
