@@ -86,27 +86,25 @@ const getTodos = async () => {
 }
   
 
-  // button.addEventListener("click", removeUser)
+ 
   ul.addEventListener("click", removeUser)
 
 
 
+const handleSubmit = e => {
+  e.preventdefault()
+  
 
-
+}
 
 
 
     // FORM VALIDERING
     const input = document.querySelector("input");
     const errormessage = document.querySelector(".errormessage");
-    
-    
+        
     form.addEventListener("submit", (e) => {
       e.preventDefault();
-      
-      // const newTodo {
-      //   title: 
-      // }
 
       if (input.value === "") {
         errormessage.innerText = "Formuläret får inte vara tomt!";
@@ -118,6 +116,13 @@ const getTodos = async () => {
         errormessage.classList.remove("errormessage");
       });
     
+      const newTodo = {
+        completed: false ,
+        title: document.querySelector("#todo").value,
+      }
+      console.log(newTodo)
+      
+      
     });
 
 
