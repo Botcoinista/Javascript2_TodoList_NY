@@ -55,47 +55,91 @@ const getTodos = async () => {
     const button = document.createElement("button")
     button.classList.add("btn")
     button.innerText = "delete"
+    button.addEventListener("click", ( )=>{
+      fetch(BASE_URL + todoData.id, {
+        method: 'DELETE'
+      })
+        .then(res => {
+          // console.log(res)
+          if(res.ok) {
+            li.remove()
+            const index = (todosArray.findIndex(todo => todo.id == todoData.id))
+            todosArray.splice(index, 1)
+            // console.log(todosArray)
+          }
+        })
+    } )
 
-     li.appendChild(p)
-     li.appendChild(p2)
-     li.appendChild(button)
+    const checkbox = document.createElement("input")
+    if(todoData.completed){
+      checkbox.checked = true;
+    }
+    checkbox.type = "checkbox"
+    checkbox.style.width = "30px";
+    checkbox.style.height = "30px";
+    checkbox.style.cursor = "pointer";
+    checkbox.addEventListener("change", () => {
+      fetch(BASE_URL + todoData.id, {
+        method: "PATCH",
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+          },
+          body: JSON.stringify({
+            completed: !todoData.completed
+          })
+      })
+      .then(res => res.json())
+      .then(data => {
+        console.log(todoData) //så såg det ut, vi clickar på check och skickar då en förfrågan till databasen, jag vill uppdatera den här todon till det den inte är
+        console.log(data) //Vi får tillbaka den uppdaterade versionen av todon, databasen svarar med det här
+        todoData.completed = data.completed // Okej, jag vill nu uppdatera todoData, vill att vår lokala array ska matcha databasen
+        console.log(todoData) // Såhär ser vår data nu ut efter vi uppdaterat den
+        if(todoData.completed) {
+          checkbox.checked = true;
+        }else {
+          checkbox.checked = false;
+        }
+      }) 
+    })
+    // const label = document.createElement("label");
+    // label.innerHTML = "ready";
+
+
+    li.appendChild(button)
+    li.appendChild(p)
+    li.appendChild(p2)
+    li.appendChild(checkbox)
+    // li.appendChild(label)
+     
 
 
     return li
   }
 
-  const removeUser = e => {
+//   const removeUser = e => {
   
-  if(!e.target.classList.contains("header")) {
-    console.log("Du klickade inte på headern")
-    return
-  }
+//   if(!e.target.classList.contains("header")) {
+//     console.log("Du klickade inte på headern")
+//     return
+//   }
  
-  fetch(BASE_URL + e.target.id, {
-    method: 'DELETE'
-  })
-    .then(res => {
-      // console.log(res)
-      if(res.ok) {
-        e.target.remove()
-        const index = (todosArray.findIndex(todo => todo.id == e.target.id))
-        todosArray.splice(index, 1)
-        // console.log(todosArray)
-      }
-    })
-}
-  
-
- 
-  ul.addEventListener("click", removeUser)
-
-
-
-// const handleSubmit = e => {
-//   e.preventdefault()
-  
-
+//   fetch(BASE_URL + e.target.id, {
+//     method: 'DELETE'
+//   })
+//     .then(res => {
+//       // console.log(res)
+//       if(res.ok) {
+//         e.target.remove()
+//         const index = (todosArray.findIndex(todo => todo.id == e.target.id))
+//         todosArray.splice(index, 1)
+//         // console.log(todosArray)
+//       }
+//     })
 // }
+  
+
+ 
+  // ul.addEventListener("click", removeUser)
 
 
 

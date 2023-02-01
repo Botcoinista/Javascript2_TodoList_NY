@@ -49,7 +49,7 @@ body {
 .listItem {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-around;
     gap: 6rem;
     height: 150px;
    width: 100%;
@@ -57,6 +57,7 @@ body {
    margin-bottom: 20px;
    font-size: 2rem;
    padding-left: 3rem;
+   cursor: pointer;
 }
 
 .listItem:hover {
@@ -93,6 +94,19 @@ body {
     border-radius: .5rem;
     max-height: 2.5rem;
     width: 150px;
+    cursor: pointer;
+}
+
+.btnKlar {
+    background-color:rgb(255, 255, 255);
+    padding: .5rem;
+    border-radius: .5rem;
+    max-height: 2.5rem;
+    width: 150px;
+}
+
+.btnKlar:hover {
+    background-color:rgb(14, 255, 26);
 }
 
 /* p {
@@ -127,3 +141,4 @@ body {
 p {
     pointer-events:none;
 }
+
