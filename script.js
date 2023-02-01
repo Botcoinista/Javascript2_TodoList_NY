@@ -44,7 +44,7 @@ const getTodos = async () => {
     li.id = todoData.id
     li.classList.add("listItem")
     li.classList.add("header")
-    li.innerText = todoData.userId
+    // li.innerText = todoData.userId
     
     const p = document.createElement("p")
     // p.innerText = todoData.completed
@@ -67,7 +67,7 @@ const getTodos = async () => {
   const removeUser = e => {
   
   if(!e.target.classList.contains("header")) {
-    console.log("klickade inte på header")
+    console.log("Du klickade inte på headern")
     return
   }
  
@@ -75,12 +75,12 @@ const getTodos = async () => {
     method: 'DELETE'
   })
     .then(res => {
-      console.log(res)
+      // console.log(res)
       if(res.ok) {
         e.target.remove()
         const index = (todosArray.findIndex(todo => todo.id == e.target.id))
         todosArray.splice(index, 1)
-        console.log(todosArray)
+        // console.log(todosArray)
       }
     })
 }
@@ -91,11 +91,11 @@ const getTodos = async () => {
 
 
 
-const handleSubmit = e => {
-  e.preventdefault()
+// const handleSubmit = e => {
+//   e.preventdefault()
   
 
-}
+// }
 
 
 
@@ -109,21 +109,35 @@ const handleSubmit = e => {
       if (input.value === "") {
         errormessage.innerText = "Formuläret får inte vara tomt!";
         errormessage.classList.add("errormessage");
+        return
       }
       
       input.addEventListener("click", () => {
         errormessage.innerText = "";
         errormessage.classList.remove("errormessage");
+        return
       });
     
       const newTodo = {
         completed: false ,
         title: document.querySelector("#todo").value,
       }
-      console.log(newTodo)
+      // console.log(newTodo)
       
-      
-    });
+      fetch(BASE_URL, {
+        method: 'POST',
+        body: JSON.stringify(newTodo),
+        headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+        },
+      })
+        .then((response) => response.json())
+        .then((json) => {
+
+        todosArray.push(json)
+        const userElement = createTodoElement(json)
+        ul.appendChild(userElement)
+      });
 
 
-  
+    })
