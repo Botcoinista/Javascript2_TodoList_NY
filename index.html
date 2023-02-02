@@ -8,12 +8,12 @@
 <title>TodoList</title>
 </head>
 <body>
-    
+    <div class="container">  
     <header class="header">
         <h2>Todolist</h2>
     </header> 
-
-    <div class="container">   
+    </div>  
+     
         <div class="errormessage"></div>
         <form class="form">
             <input class="input" id="todo" type="text" placeholder="Add Todo">
@@ -23,20 +23,27 @@
         <div class="card">            
             <ul class="list" >
                 
+                
+                <div id="myModal" class="modal">
+                    <div class="modal-content">
+                      <span class="close">&times;</span>
+                      <p>Please check the checkbox before proceeding.</p>
+                    </div>
                 <li class="listItem">
-                    <p id="todo">Mjölk</p>
-                    <button class="btn">delete</button>
-                </li> 
-                    <!-- <div class="checkbox"><input type="checkbox" name="" id="checkbox"></div> -->
-                <li class="listItem">
-                    <p id="todo">Ägg</p>
-                    <button class="btn">delete</button>
-                </li>
-                    
-                <li class="listItem ">
-                    <p id="todo">Bröd</p>
-                    <button class="btn">delete</button> 
-                </li>
+                          </div>
+                        <p id="todo">Mjölk</p>
+                        <button class="btn">delete</button>
+                    </li> 
+                        <!-- <div class="checkbox"><input type="checkbox" name="" id="checkbox"></div> -->
+                    <li class="listItem">
+                        <p id="todo">Ägg</p>
+                        <button class="btn">delete</button>
+                    </li>
+                        
+                    <li class="listItem ">
+                        <p id="todo">Bröd</p>
+                        <button class="btn">delete</button> 
+                    </li>
                 
             </ul>
             
@@ -45,7 +52,7 @@
         
         
         
-    </div>    
+     
 
 <script src="script.js"></script>
 </body>
