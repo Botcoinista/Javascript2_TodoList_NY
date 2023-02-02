@@ -16,9 +16,12 @@ const getTodos = async () => {
     const data = await res.json();
     //LOOPAR IGENOM ALL DATA MAN FÅR FRÅN API:et OCH PUSHAR IN DET I DET LOKALA ARRAYET = todosArray 
     // console.log(data)
+    
     data.forEach(data => {
       todosArray.push(data)
+  
     })
+
     
     const todoList = () => {
       ul.innerText = ""
@@ -144,44 +147,45 @@ const getTodos = async () => {
 
 
     // FORM VALIDERING
-    const input = document.querySelector("input");
-    const errormessage = document.querySelector(".errormessage");
-        
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
+   const input = document.querySelector("input");
+const errormessage = document.querySelector(".errormessage");
 
-      if (input.value === "") {
-        errormessage.innerText = "Formuläret får inte vara tomt!";
-        errormessage.classList.add("errormessage");
-        return
-      }
-      
-      input.addEventListener("click", () => {
-        errormessage.innerText = "";
-        errormessage.classList.remove("errormessage");
-        return
-      });
-    
-      const newTodo = {
-        completed: false ,
-        title: document.querySelector("#todo").value,
-      }
-      // console.log(newTodo)
-      
-      fetch(BASE_URL, {
-        method: 'POST',
-        body: JSON.stringify(newTodo),
-        headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-        },
-      })
-        .then((response) => response.json())
-        .then((json) => {
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
 
-        todosArray.push(json)
-        const userElement = createTodoElement(json)
-        ul.appendChild(userElement)
-      });
+  if (input.value === "") {
+    errormessage.innerText = "Formuläret får inte vara tomt!";
+    errormessage.classList.add("errormessage");
 
+    input.addEventListener("click", () => {
+      errormessage.innerText = "";
+      errormessage.classList.remove("errormessage");
+    });
+  }
 
+  const newTodo = {
+    completed: false ,
+    title: document.querySelector("#todo").value,
+  }
+
+  if (input.value !== "") {
+    fetch(BASE_URL, {
+      method: 'POST',
+      body: JSON.stringify(newTodo),
+      headers: {
+      'Content-type': 'application/json; charset=UTF-8',
+      },
     })
+      .then((response) => response.json())
+      .then((json) => {
+      todosArray.push(json)
+      const userElement = createTodoElement(json)
+      ul.appendChild(userElement)
+    });
+  }
+});
+
+
+
+
+
