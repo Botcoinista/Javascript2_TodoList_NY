@@ -5,7 +5,7 @@ const ul = document.querySelector(".list");
 const li = document.querySelector(".listItem");
 const button = document.querySelector(".btn");
 
-//SKAPAR EN TOM LOKAL ARRAY
+//CREATES A LOCAL ARRAY
 todosArray = [];
 
 //HÄMTAR DATAN FRÅN API:et OCH GÖR OM DET TILL EN JAVASCRIPTFIL
@@ -22,22 +22,23 @@ const getTodos = async () => {
   });
 
   const todoList = () => {
-    ul.innerText = "";
-    // FÖR VARJE TODO I todosArray
+    ul.innerText = ""; // REMOVES ALL THAT IS IN THE ul FROM THE WEBPAGE WITH ADDING AN EMPTY STRING INSTEAD
     todosArray.forEach((todo) => {
       // console.log(todo)
-      /* FÖR VARJE ANVÄNDARE SÅ SKA JAG BYGGA IHOP ETT createElement,
-        DÅ MÅSTE VI TA VARJE todo OCH LÄGGA IN DET I createElement FUNKTIONEN */
+      /* FÖR VARJE ANVÄNDARE SÅ BYGGER VI IHOP ETT createElement,
+        DÅ MÅSTE VI TA VARJE todo OCH LÄGGA IN DET I createElement-FUNKTIONEN */
       const userElement = createTodoElement(todo);
       ul.appendChild(userElement);
     });
   };
-  todoList(); //KÖR todoList FUNKTIONEN
+  todoList(); //RUNS THE todoList-function
 };
 
-getTodos(); //KÖR GET TODOS FUNKTIONEN
+getTodos(); //RUNS THE getTodos-function
 
+//CREATES THE DOM-ELEMENTS
 const createTodoElement = (todoData) => {
+
   const li = document.createElement("li");
   li.id = todoData.id;
   li.classList.add("listItem");
@@ -54,14 +55,13 @@ const createTodoElement = (todoData) => {
   button.classList.add("btn");
   button.innerText = "delete";
 
-  //MODAL START
 
   button.addEventListener("click", () => {
-    // Deletes a Todo
-    if (!checkbox.checked) {
+    // DELETES A TODO
+    if (!checkbox.checked) { //IF THE CHECKBOX ISN´T CHECKED WHEN TRYING TO DELETE THE TODO, DISPLAY THE MODAL
       modal.style.display = "block";
       return;
-      // alert("Please check the checkbox before proceeding.");
+      // alert("Please check the checkbox before proceeding."); // (IF YOU ONLY WANT AN ALERT INSTEAD)
     }
     fetch(BASE_URL + todoData.id, {
       method: "DELETE",
@@ -81,8 +81,8 @@ const createTodoElement = (todoData) => {
     checkbox.checked = true;
   }
   checkbox.type = "checkbox";
-  checkbox.style.width = "30px";
-  checkbox.style.height = "30px";
+  checkbox.style.width = "35px";
+  checkbox.style.height = "35px";
   checkbox.style.cursor = "pointer";
 
   checkbox.addEventListener("change", () => {
@@ -109,6 +109,7 @@ const createTodoElement = (todoData) => {
       });
   });
 
+
   li.appendChild(button);
   li.appendChild(p);
   li.appendChild(p2);
@@ -117,7 +118,8 @@ const createTodoElement = (todoData) => {
   return li;
 };
 
-// FORM VALIDERING
+// FORM VALIDATION START
+
 const input = document.querySelector("input");
 const errormessage = document.querySelector(".errormessage");
 
@@ -156,9 +158,12 @@ form.addEventListener("submit", (e) => {
   }
 });
 
+// FORM VALIDATION END
+
+
 // MODAL START
 
-// Create modal elements
+// Creates modal elements
 const modal = document.createElement("div");
 modal.classList.add("modal");
 
@@ -176,9 +181,6 @@ modal.appendChild(modalContent);
 
 // Add modal to page
 document.body.appendChild(modal);
-
-// Show modal
-// modal.style.display = "block";
 
 // Close modal on close button click
 closeButton.addEventListener("click", function () {
