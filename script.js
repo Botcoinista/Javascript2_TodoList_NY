@@ -61,17 +61,51 @@ const getTodos = async () => {
     button.innerText = "delete"
 
 
+    //MODAL START
+
+    // Create modal elements
+const modal = document.createElement('div');
+modal.classList.add('modal');
+
+const modalContent = document.createElement('div');
+modalContent.classList.add('modal-content');
+modalContent.innerText = "Please check the checkbox before proceeding!";
+
+const closeButton = document.createElement('span');
+closeButton.innerHTML = '&times;';
+closeButton.classList.add('close');
+
+// Add elements to modal
+modalContent.appendChild(closeButton);
+modal.appendChild(modalContent);
+
+// Add modal to page
+document.body.appendChild(modal);
+
+// Show modal
+modal.style.display = 'block';
+
+// Close modal on close button click
+closeButton.addEventListener('click', function() {
+  modal.style.display = 'none';
+});
+
+
+    //MODAL END
+
+
 
     
     button.addEventListener("click", ( ) => {
       // Deletes a Todo
       if (!checkbox.checked) {
-        alert("Please check the checkbox before proceeding.");
-        return; }
+        modal.style.display = "block";
+        return
+        // alert("Please check the checkbox before proceeding.");
+      }
         fetch(BASE_URL + todoData.id, {
         method: 'DELETE'
         }) 
-
         .then(res => {
           console.log(res)
           if(res.ok) {
@@ -94,6 +128,7 @@ const getTodos = async () => {
     checkbox.style.cursor = "pointer";
 
     checkbox.addEventListener("change", () => {
+
       fetch(BASE_URL + todoData.id, {
         method: "PATCH",
         headers: {
@@ -116,15 +151,13 @@ const getTodos = async () => {
         }
       }) 
     })
-    // const label = document.createElement("label");
-    // label.innerHTML = "ready";
-
+   
 
     li.appendChild(button)
     li.appendChild(p)
     li.appendChild(p2)
     li.appendChild(checkbox)
-    // li.appendChild(label)
+    
      
 
 
@@ -136,7 +169,7 @@ const getTodos = async () => {
 
     // FORM VALIDERING
    const input = document.querySelector("input");
-const errormessage = document.querySelector(".errormessage");
+   const errormessage = document.querySelector(".errormessage");
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
